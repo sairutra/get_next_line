@@ -74,19 +74,4 @@ char * parse_buffer(char * buff, char * stat_buff, unsigned int SIZE)
 	return(rtr);
 }
 
-static char * read_buffer( int fd)
-{
-	ssize_t rtr;
-	char *rtr_buf;
-    rtr_buf = malloc(BUFFER_SIZE + 1);
-    if (rtr_buf == NULL)
-        return(NULL);
-    rtr = read(fd, rtr_buf, BUFFER_SIZE);
-    if (rtr == -1)
-        return(NULL);
-    if (rtr < BUFFER_SIZE)
-		rtr_buf[rtr] = '\0';
-	else
-		rtr_buf[BUFFER_SIZE] = '\0';
-	return(rtr_buf);
-}
+
