@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   libft.h                                            :+:    :+:            */
+/*   get_next_line.h                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: spenning <spenning@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/21 23:03:23 by spenning      #+#    #+#                 */
-/*   Updated: 2023/10/22 14:02:53 by spenning      ########   odam.nl         */
+/*   Updated: 2023/12/12 15:33:07 by spenning      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,27 @@
 // name is LIBFT_H because the name should be the full filename of the 
 // header file, in all caps, with underscores for spaces and ​punctuation.
 
+
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+#ifndef BUFFER_SIZE
+    #define BUFFER_SIZE 10
+#endif
+
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+
 char *  get_next_line(int fd);
+static char * read_buffer(unsigned int SIZE, int fd);
+static char * memmove(char *rtr);
+static int read_stat(char *stat_buf);
+char * parse_buffer(char * buff, char * stat_buff, unsigned int SIZE);
+size_t lenstr(char * buff);
+void alloc_stat(size_t index, size_t len, char *stat_buff, char *buff, unsigned int SIZE);
+
 
 #endif
