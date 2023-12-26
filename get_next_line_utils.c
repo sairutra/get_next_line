@@ -1,77 +1,50 @@
 #include "get_next_line.h"
 
-static int alloc_stat(size_t index, size_t len, char *stat_buff, char *buff, unsigned int SIZE)
+size_t	ft_strlen(const char *s)
 {
-	int stat_index;
-
-	stat_buff = malloc(SIZE);
-	if (stat_buff == NULL)
-		return(0);
-	while (index < len)
-	{
-		stat_buff[stat_index] = buff[index];
-		stat_index;
-		index++;
-	}
-	stat_buff[stat_index] = '\0';
-	return (1);
-}
-
-static size_t lenstr(char * buff)
-{	
-	size_t len;
-
-	len = 0;
-	while (buff[len] != '\0')
-	{
-		len++;
-	}
-	return(len);
-}
-
-static char * memmove(char *rtr, int end, char *stat_buf)
-{
-	int index;
+	size_t	index;
 
 	index = 0;
-	while (index < end)
+	if (s[index] == '\0')
 	{
-		rtr[index] = stat_buf[index];
-		index++;
+		return (0);
 	}
-	rtr[index + 1] = '\0';
-	return(rtr);
-}
-
-char * parse_buffer(char * buff, char * stat_buff, unsigned int SIZE)
-{
-	int index;
-	char *rtr;
-	size_t len;
-
-	index = 0;
-	len = lenstr(buff);
-	while(buff[index] != '\0')
+	else
 	{
-		if(buff[index] == '\n')
+		while (s[index] != '\0')
 		{
-			rtr = malloc(index + 1);
-			if(rtr == NULL)
-				return(NULL);
-			rtr = memmove(rtr, index, buff);
-			if(alloc_stat(index, len, stat_buff, buff, SIZE) == 0)
-				return(0);
-			return(rtr);
+			index++;
 		}
-		index++;
+		return (index);
 	}
-	rtr = malloc(index + 1);
-	if(rtr == NULL)
-		return(NULL);
-	rtr = memmove(rtr, index, buff);
-	if(alloc_stat(index, len, stat_buff, buff, SIZE) == 0)
-		return(0);
-	return(rtr);
 }
 
 
+char	*strjoin(char const *s1, char const *s2)
+{
+	size_t	index;
+	size_t	len_s1;
+	size_t	len_s2;
+	char	*ns_cptr;
+
+	if (s1 && s2)
+	{
+		len_s1 = ft_strlen(s1);
+		len_s2 = ft_strlen(s2);
+		ns_cptr = (char*)malloc(sizeof(char) * (len_s1 + len_s2 + 1));
+		if (ns_cptr == NULL)
+			return (NULL);
+		index = -1;
+		while (s1[++index])
+			ns_cptr[index] = s1[index];
+		index = -1;
+		while (s2[++index])
+		{
+			ns_cptr[len_s1] = s2[index];
+			len_s1++;
+		}
+		ns_cptr[len_s1] = '\0';
+		return (ns_cptr);
+	}
+	return(NULL);
+}

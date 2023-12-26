@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: spenning <spenning@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/21 23:03:23 by spenning      #+#    #+#                 */
-/*   Updated: 2023/12/12 18:16:10 by spenning      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mynodeus <mynodeus@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/21 23:03:23 by spenning          #+#    #+#             */
+/*   Updated: 2023/12/26 20:21:25 by mynodeus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@
 
 
 char *  get_next_line(int fd);
-static int read_buffer(int fd);
-static int check_nextline(char *rtr_buf, ssize_t buf_size);
+int read_buffer(int fd, char **stat_buf);
+int check_nextline(char *rtr_buf, ssize_t buf_size);
+char	*strjoin(char const *s1, char const *s2);
+size_t	ft_strlen(const char *s);
 // static char * memmove(char *rtr);
 // static int read_stat(char *stat_buf);
 // char * parse_buffer(char * buff, char * stat_buff, unsigned int SIZE);
