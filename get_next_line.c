@@ -102,18 +102,18 @@ int read_buffer(int fd, char **stat_buf)
 
 char *  get_next_line(int fd)
 {
-    // check norm
     static char *stat_buf;
     char * ret_str;
 
     if(!stat_buf)
-        stat_buf = ft_strdup("");
-    read_buffer(fd, &stat_buf);
+		stat_buf = ft_strdup("");
+	if (read_buffer(fd, &stat_buf) == 0)
+		return(NULL);
     ret_str = malloc(check_nextline(stat_buf, BUFFER_SIZE) + 1);
     if(ret_str == NULL)
         return(NULL);
     ft_strlcpy(ret_str, stat_buf, check_nextline(stat_buf, BUFFER_SIZE));
-	ft_bzero(stat_buf, check_nextline(stat_buf, BUFFER_SIZE));
+	// ft_bzero(stat_buf, check_nextline(stat_buf, BUFFER_SIZE));
     // printf("ret_str: %s\n", ret_str);
     return(ret_str);
 }
@@ -122,13 +122,15 @@ char *  get_next_line(int fd)
 int main ()
 {
     unsigned int fd;
+	char *test;
     fd = open("./test.txt", O_RDONLY);
 
-    printf("%s\n", get_next_line(fd));
-    printf("%s\n", get_next_line(fd));
-    printf("%s\n", get_next_line(fd));
-
-
+    // printf("%s\n", get_next_line(fd));
+    // printf("%s\n", get_next_line(fd));
+    // printf("%s\n", get_next_line(fd));
+	test = get_next_line(fd); 
+	test = get_next_line(fd); 
+	free(test);
 
     close(fd);
 }
