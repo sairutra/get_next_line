@@ -85,6 +85,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	return (srclen);
 }
 
+
 int check_nextline(char *stat_buf)
 {
     int index;
@@ -114,28 +115,44 @@ char * realloc_statbuf(char **stat_buf, size_t gnl, size_t stat_buf_len)
 int read_buffer(int fd, char** stat_buf)
 {
     static ssize_t rtr;
-	char read_buf[BUFFER_SIZE + 1];
+	char *read_buf;
 	char * temp;
+
+	read_buf = malloc(BUFFER_SIZE);
+	if(read_buf == NULL)
+		return (0);
 
     rtr = -1;
     while(rtr != 0)
     {
 		rtr = read(fd, read_buf, BUFFER_SIZE);
         if (rtr == -1)
-		    return(0);
+		{
+		    free(read_buf);
+			return(0);
+		}
 		if (rtr < BUFFER_SIZE)
             read_buf[rtr] = '\0';
         else
             read_buf[BUFFER_SIZE] = '\0';
 		// printf("read buffer stat_buf: %s\n", *stat_buf);
 		if(!*stat_buf && rtr == 0)
+		{
+			free(read_buf);
 			return(0);
+		}
 		if(!*stat_buf)
 			*stat_buf = ft_strdup("");
 		temp = *stat_buf;
 		*stat_buf = strjoin(*stat_buf, read_buf);
 		free(temp);
+		if(check_nextline(read_buf) < BUFFER_SIZE)
+		{
+			free(read_buf);
+			return(1);
+		}
     }
+	free(read_buf);
 	return(1);
 }
 
@@ -192,18 +209,18 @@ char *  get_next_line(int fd)
 
 // int main ()
 // {
-//     unsigned int fd;
+//     // unsigned int fd;
 // 	char *test;
-//     fd = open("./test.txt", O_RDONLY);
+//     // fd = open("./test.txt", O_RDONLY);
 
-// 	test = get_next_line(fd);
+// 	test = get_next_line(1);
 // 	printf("return: \n%s\n", test);
 // 	free(test); 
-// 	test = get_next_line(fd);
-// 	printf("return: \n%s\n", test);
-// 	free(test);
+// 	// test = get_next_line(fd);
+// 	// printf("return: \n%s\n", test);
+// 	// free(test);
 
-//     close(fd);
+//     // close(fd);
 // }
 
 

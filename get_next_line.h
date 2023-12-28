@@ -6,7 +6,7 @@
 /*   By: spenning <spenning@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/21 23:03:23 by spenning      #+#    #+#                 */
-/*   Updated: 2023/12/28 15:54:48 by spenning      ########   odam.nl         */
+/*   Updated: 2023/12/28 19:43:10 by spenning      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 
 #ifndef BUFFER_SIZE
     #define BUFFER_SIZE 10
+#elif BUFFER_SIZE == 1000000
+    #undef BUFFER_SIZE
+    #define BUFFER_SIZE 999998
 #endif
 
 #include <fcntl.h>
