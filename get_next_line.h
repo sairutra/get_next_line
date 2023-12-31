@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: spenning <spenning@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/21 23:03:23 by spenning      #+#    #+#                 */
-/*   Updated: 2023/12/28 19:43:10 by spenning      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mynodeus <mynodeus@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/21 23:03:23 by spenning          #+#    #+#             */
+/*   Updated: 2023/12/30 23:49:24 by mynodeus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 
 #ifndef BUFFER_SIZE
     #define BUFFER_SIZE 10
-#elif BUFFER_SIZE == 1000000
-    #undef BUFFER_SIZE
-    #define BUFFER_SIZE 999998
+// #elif BUFFER_SIZE == 1000000
+//     #undef BUFFER_SIZE
+//     #define BUFFER_SIZE 999998
 #endif
 
 #include <fcntl.h>

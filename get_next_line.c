@@ -118,7 +118,7 @@ int read_buffer(int fd, char** stat_buf)
 	char *read_buf;
 	char * temp;
 
-	read_buf = malloc(BUFFER_SIZE);
+	read_buf = malloc((BUFFER_SIZE + 1));
 	if(read_buf == NULL)
 		return (0);
 
@@ -129,6 +129,7 @@ int read_buffer(int fd, char** stat_buf)
         if (rtr == -1)
 		{
 		    free(read_buf);
+			read_buf = NULL;
 			return(0);
 		}
 		if (rtr < BUFFER_SIZE)
@@ -139,6 +140,7 @@ int read_buffer(int fd, char** stat_buf)
 		if(!*stat_buf && rtr == 0)
 		{
 			free(read_buf);
+			read_buf = NULL;
 			return(0);
 		}
 		if(!*stat_buf)
@@ -146,9 +148,11 @@ int read_buffer(int fd, char** stat_buf)
 		temp = *stat_buf;
 		*stat_buf = strjoin(*stat_buf, read_buf);
 		free(temp);
+		temp = NULL;
 		if(check_nextline(read_buf) < BUFFER_SIZE)
 		{
 			free(read_buf);
+			read_buf = NULL;
 			return(1);
 		}
     }
@@ -159,7 +163,7 @@ int read_buffer(int fd, char** stat_buf)
 char * return_str(char **stat_buf, size_t gnl)
 {
 	char * ret;
-	int 	strlcpy_int;
+	size_t 	strlcpy_int;
 	if(gnl == 0 && !*stat_buf)
 		return(NULL);
 	ret = malloc(gnl + 2);
@@ -169,6 +173,7 @@ char * return_str(char **stat_buf, size_t gnl)
 	if(strlcpy_int == 0)
 	{
 		free(ret);
+		ret = NULL;
 		return(NULL);
 	}
 	return(ret);
@@ -181,11 +186,12 @@ char *  get_next_line(int fd)
 	size_t			gnl;
 	size_t			stat_buf_len;
 
-	if(fd == 0 || BUFFER_SIZE == 0)
+	if(BUFFER_SIZE == 0)
 		return(NULL);
 	if(read_buffer(fd, &stat_buf) == 0)
 	{
 		free(stat_buf);
+		stat_buf = NULL;
 		return(NULL);
 	}
 	stat_buf_len = ft_strlen(stat_buf);
@@ -209,18 +215,29 @@ char *  get_next_line(int fd)
 
 // int main ()
 // {
-//     // unsigned int fd;
+//     unsigned int fd;
 // 	char *test;
-//     // fd = open("./test.txt", O_RDONLY);
+//     fd = open("./test.txt", O_RDWR);
 
-// 	test = get_next_line(1);
+// 	test = get_next_line(0);
 // 	printf("return: \n%s\n", test);
 // 	free(test); 
 // 	// test = get_next_line(fd);
 // 	// printf("return: \n%s\n", test);
 // 	// free(test);
 
-//     // close(fd);
+//     close(fd);
+
+// 	fd = open("./test.txt", O_RDWR);
+
+// 	test = get_next_line(0);
+// 	printf("return: \n%s\n", test);
+// 	free(test); 
+// 	// test = get_next_line(fd);
+// 	// printf("return: \n%s\n", test);
+// 	// free(test);
+
+//     close(fd);
 // }
 
 
