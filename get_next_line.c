@@ -12,6 +12,8 @@ char	*ft_strdup(const char *s)
 	s_cptr = (char *)s;
 	s_len = ft_strlen(s_cptr);
 	ns_vptr = malloc(s_len + 1);
+	if(ns_vptr == NULL)
+		return (NULL);
 	ns_cptr = (char *)ns_vptr;
 	if (!ns_cptr)
 		return (NULL);
@@ -108,7 +110,11 @@ char * realloc_statbuf(char **stat_buf, size_t gnl, size_t stat_buf_len)
 
 	temp = *stat_buf;
 	*stat_buf = ft_substr(*stat_buf, gnl + 1, stat_buf_len - gnl);
-	free(temp);
+	if(temp)
+	{
+		free(temp);
+		temp = NULL;
+	}	
 	return(*stat_buf);
 }
 
@@ -157,6 +163,7 @@ int read_buffer(int fd, char** stat_buf)
 		}
     }
 	free(read_buf);
+	read_buf = NULL;
 	return(1);
 }
 
@@ -166,10 +173,14 @@ char * return_str(char **stat_buf, size_t gnl)
 	size_t 	strlcpy_int;
 	if(gnl == 0 && !*stat_buf)
 		return(NULL);
-	ret = malloc(gnl + 2);
+	if(gnl == 1)
+		gnl += 1;
+	else
+		gnl += 2;
+	ret = malloc(gnl);
 	if(ret == NULL)
 		return(NULL);
-	strlcpy_int = ft_strlcpy(ret, *stat_buf, gnl + 2);
+	strlcpy_int = ft_strlcpy(ret, *stat_buf, gnl);
 	if(strlcpy_int == 0)
 	{
 		free(ret);
@@ -190,8 +201,11 @@ char *  get_next_line(int fd)
 		return(NULL);
 	if(read_buffer(fd, &stat_buf) == 0)
 	{
-		free(stat_buf);
-		stat_buf = NULL;
+		if(stat_buf)
+		{
+			free(stat_buf);
+			stat_buf = NULL;
+		}
 		return(NULL);
 	}
 	stat_buf_len = ft_strlen(stat_buf);
@@ -205,8 +219,11 @@ char *  get_next_line(int fd)
 	if(gnl == stat_buf_len)
 	{	
 		// printf("stat_buf: %s\n", stat_buf);
-		free(stat_buf);
-		stat_buf = NULL;
+		if(stat_buf)
+		{
+			free(stat_buf);
+			stat_buf = NULL;
+		}
 		// printf("stat_buf: %s\n", stat_buf);
 	}
 	return(ret);
@@ -219,25 +236,35 @@ char *  get_next_line(int fd)
 // 	char *test;
 //     fd = open("./test.txt", O_RDWR);
 
-// 	test = get_next_line(0);
+// 	test = get_next_line(fd);
 // 	printf("return: \n%s\n", test);
 // 	free(test); 
 // 	// test = get_next_line(fd);
 // 	// printf("return: \n%s\n", test);
 // 	// free(test);
 
-//     close(fd);
+//     // close(fd);
 
-// 	fd = open("./test.txt", O_RDWR);
+// 	// fd = open("./test.txt", O_RDWR);
 
-// 	test = get_next_line(0);
+// 	test = get_next_line(fd);
 // 	printf("return: \n%s\n", test);
 // 	free(test); 
+// 	test = get_next_line(fd);
+// 	printf("return: \n%s\n", test);
+// 	free(test); 
+// 	test = get_next_line(fd);
+// 	printf("return: \n%s\n", test);
+// 	free(test); 
+// 	test = get_next_line(fd);
+// 	printf("return: \n%s\n", test);
+// 	free(test); 
+	
 // 	// test = get_next_line(fd);
 // 	// printf("return: \n%s\n", test);
 // 	// free(test);
 
-//     close(fd);
+//     close(fd); 
 // }
 
 
