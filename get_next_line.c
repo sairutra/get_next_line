@@ -52,22 +52,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (ns_cptr);
 }
 
-
-
-void	ft_bzero(void *s, size_t n)
-{
-	long unsigned int	index;
-	char				*cptr;
-
-	index = 0;
-	cptr = (char *)s;
-	while (index < n)
-	{
-		cptr[index] = '\0';
-		index++;
-	}
-}
-
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t		srclen;
@@ -119,7 +103,10 @@ char * realloc_statbuf(char **stat_buf, size_t gnl, size_t stat_buf_len)
 	// }
 	*stat_buf = ft_substr(*stat_buf, gnl, stat_buf_len - gnl);
 	if(*stat_buf == NULL)
+	{
+		free(temp);
 		return(NULL);
+	}
 	// index = 0;
 	// while(stat_buf[0][index] != '\0')
 	// {
@@ -188,6 +175,13 @@ int read_buffer(int fd, char** stat_buf)
 		}
 		temp = *stat_buf;
 		*stat_buf = strjoin(*stat_buf, read_buf);
+		if(*stat_buf == NULL)
+			{
+				free(temp);
+				free(read_buf);
+				read_buf = NULL;
+				return(0);
+			}
 		// printf("*stat_buf: %s\n", *stat_buf);
 		free(temp);
 		temp = NULL;
@@ -216,10 +210,17 @@ char * return_str(char **stat_buf, size_t gnl)
 	// printf("%ld\n",gnl);
 	ret = malloc(gnl);
 	if(ret == NULL)
+	{
+		free(*stat_buf);
+		*stat_buf = NULL;
+		free(ret);
 		return(NULL);
+	}
 	strlcpy_int = ft_strlcpy(ret, *stat_buf, gnl);
 	if(strlcpy_int == 0)
 	{
+		free(*stat_buf);
+		*stat_buf = NULL;
 		free(ret);
 		ret = NULL;
 		return(NULL);
@@ -253,6 +254,11 @@ char *  get_next_line(int fd)
 	// printf("ret= %d\n", ret[0]);
 	if(gnl < stat_buf_len && ret != NULL)
 		realloc_statbuf(&stat_buf, gnl, stat_buf_len);
+	if(stat_buf == NULL && ret)
+	{
+		free(ret);
+		return(NULL);
+	}
 	if(gnl == stat_buf_len)
 	{
 		// printf("stat_buf: %s\n", stat_buf);
