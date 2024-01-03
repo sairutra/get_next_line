@@ -97,6 +97,7 @@ int check_nextline(char *stat_buf)
 		// printf("check_nl: %c\n", stat_buf[index]);
         if (stat_buf[index] == '\n')
         {
+			index++;
             return(index);
         }
     	index++;
@@ -109,12 +110,27 @@ char * realloc_statbuf(char **stat_buf, size_t gnl, size_t stat_buf_len)
 	char * temp;
 
 	temp = *stat_buf;
-	*stat_buf = ft_substr(*stat_buf, gnl + 1, stat_buf_len - gnl);
+	// int index = 0;
+	// printf("realloc stat_buf:%s\n", *stat_buf);
+	// while(stat_buf[0][index] != '\0')
+	// {
+	// 	printf("realloc pre stat_buf char: %d\n", stat_buf[0][index]);
+	// 	index++;
+	// }
+	*stat_buf = ft_substr(*stat_buf, gnl, stat_buf_len - gnl);
+	if(*stat_buf == NULL)
+		return(NULL);
+	// index = 0;
+	// while(stat_buf[0][index] != '\0')
+	// {
+	// 	printf("realloc after stat_buf char: %d\n", stat_buf[0][index]);
+	// 	index++;
+	// }
 	if(temp)
 	{
 		free(temp);
 		temp = NULL;
-	}	
+	}
 	return(*stat_buf);
 }
 
@@ -138,10 +154,21 @@ int read_buffer(int fd, char** stat_buf)
 			read_buf = NULL;
 			return(0);
 		}
+		// printf("rtr: %ld\n", rtr);
 		if (rtr < BUFFER_SIZE)
             read_buf[rtr] = '\0';
-        else
+		// if (read_buf[0] == 48 && read_buf[1] == '\0')
+		// {
+		// 	printf("yes\n");
+		// }
+		else
             read_buf[BUFFER_SIZE] = '\0';
+		// int index = 0;
+		// while(read_buf[index])
+		// {
+		// 	printf("read_buf: %d\n", read_buf[index]);
+		// 	index++;
+		// }
 		// printf("read buffer stat_buf: %s\n", *stat_buf);
 		if(!*stat_buf && rtr == 0)
 		{
@@ -150,9 +177,18 @@ int read_buffer(int fd, char** stat_buf)
 			return(0);
 		}
 		if(!*stat_buf)
+		{
 			*stat_buf = ft_strdup("");
+			if(*stat_buf == NULL)
+			{
+				free(read_buf);
+				read_buf = NULL;
+				return(0);
+			}
+		}
 		temp = *stat_buf;
 		*stat_buf = strjoin(*stat_buf, read_buf);
+		// printf("*stat_buf: %s\n", *stat_buf);
 		free(temp);
 		temp = NULL;
 		if(check_nextline(read_buf) < BUFFER_SIZE)
@@ -173,10 +209,11 @@ char * return_str(char **stat_buf, size_t gnl)
 	size_t 	strlcpy_int;
 	if(gnl == 0 && !*stat_buf)
 		return(NULL);
-	if(gnl == 1)
-		gnl += 1;
-	else
-		gnl += 2;
+	
+	gnl += 1;
+	// else
+	// 	gnl += 1;
+	// printf("%ld\n",gnl);
 	ret = malloc(gnl);
 	if(ret == NULL)
 		return(NULL);
@@ -217,7 +254,7 @@ char *  get_next_line(int fd)
 	if(gnl < stat_buf_len && ret != NULL)
 		realloc_statbuf(&stat_buf, gnl, stat_buf_len);
 	if(gnl == stat_buf_len)
-	{	
+	{
 		// printf("stat_buf: %s\n", stat_buf);
 		if(stat_buf)
 		{
@@ -238,7 +275,7 @@ char *  get_next_line(int fd)
 
 // 	test = get_next_line(fd);
 // 	printf("return: \n%s\n", test);
-// 	free(test); 
+// 	free(test);
 // 	// test = get_next_line(fd);
 // 	// printf("return: \n%s\n", test);
 // 	// free(test);
@@ -249,22 +286,22 @@ char *  get_next_line(int fd)
 
 // 	test = get_next_line(fd);
 // 	printf("return: \n%s\n", test);
-// 	free(test); 
+// 	free(test);
 // 	test = get_next_line(fd);
 // 	printf("return: \n%s\n", test);
-// 	free(test); 
+// 	free(test);
 // 	test = get_next_line(fd);
 // 	printf("return: \n%s\n", test);
-// 	free(test); 
+// 	free(test);
 // 	test = get_next_line(fd);
 // 	printf("return: \n%s\n", test);
-// 	free(test); 
-	
+// 	free(test);
+
 // 	// test = get_next_line(fd);
 // 	// printf("return: \n%s\n", test);
 // 	// free(test);
 
-//     close(fd); 
+//     close(fd);
 // }
 
 
