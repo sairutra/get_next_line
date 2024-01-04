@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mynodeus <mynodeus@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 10:43:41 by spenning          #+#    #+#             */
+/*   Updated: 2024/01/04 23:39:33 by mynodeus         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
@@ -19,7 +31,6 @@ size_t	ft_strlen(const char *s)
 	}
 }
 
-
 char	*strjoin(char const *s1, char const *s2)
 {
 	size_t	index;
@@ -31,7 +42,7 @@ char	*strjoin(char const *s1, char const *s2)
 	{
 		len_s1 = ft_strlen(s1);
 		len_s2 = ft_strlen(s2);
-		ns_cptr = (char*)malloc(sizeof(char) * (len_s1 + len_s2 + 1));
+		ns_cptr = (char *)malloc(sizeof(char) * (len_s1 + len_s2 + 1));
 		if (ns_cptr == NULL)
 			return (NULL);
 		index = -1;
@@ -46,5 +57,5 @@ char	*strjoin(char const *s1, char const *s2)
 		ns_cptr[len_s1] = '\0';
 		return (ns_cptr);
 	}
-	return(NULL);
+	return (NULL);
 }
