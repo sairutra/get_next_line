@@ -1,76 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mynodeus <mynodeus@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/04 23:44:00 by mynodeus          #+#    #+#             */
+/*   Updated: 2024/01/06 14:27:45 by mynodeus         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
-#include <string.h>
-
-char	*ft_strdup(const char *s)
-{
-	char	*s_cptr;
-	size_t	s_len;
-	void	*ns_vptr;
-	char	*ns_cptr;
-	size_t	index;
-
-	s_cptr = (char *)s;
-	s_len = ft_strlen(s_cptr);
-	ns_vptr = malloc(s_len + 1);
-	if(ns_vptr == NULL)
-		return (NULL);
-	ns_cptr = (char *)ns_vptr;
-	if (!ns_cptr)
-		return (NULL);
-	index = 0;
-	while (s_cptr[index] != '\0')
-	{
-		ns_cptr[index] = s_cptr[index];
-		index++;
-	}
-	ns_cptr[index] = '\0';
-	return (ns_cptr);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*s_cptr;
-	char	*ns_cptr;
-	size_t	index;
-
-	if (start >= ft_strlen(s))
-		return (ft_strdup(""));
-	if (len > ft_strlen(s + start))
-		len = ft_strlen(s + start);
-	ns_cptr = (char *)malloc(len + 1);
-	if (ns_cptr == NULL)
-		return (NULL);
-	s_cptr = (char *)s;
-	index = 0;
-	while (index < len && s_cptr[start] != '\0')
-	{
-		ns_cptr[index] = s_cptr[start];
-		start++;
-		index++;
-	}
-	ns_cptr[index] = '\0';
-	return (ns_cptr);
-}
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	size_t		srclen;
-	size_t		index;
-
-	srclen = ft_strlen(src);
-	index = 0;
-	if (size > 0)
-	{
-		while (index < (size -1) && src[index])
-		{
-			dst[index] = src[index];
-			index ++;
-		}
-		dst[index] = '\0';
-	}
-	return (srclen);
-}
-
 
 int check_nextline(char *stat_buf)
 {
@@ -78,7 +18,6 @@ int check_nextline(char *stat_buf)
     index=0;
     while(stat_buf[index] != '\0')
     {
-		// printf("check_nl: %c\n", stat_buf[index]);
         if (stat_buf[index] == '\n')
         {
 			index++;
@@ -94,25 +33,12 @@ char * realloc_statbuf(char **stat_buf, size_t gnl, size_t stat_buf_len)
 	char * temp;
 
 	temp = *stat_buf;
-	// int index = 0;
-	// printf("realloc stat_buf:%s\n", *stat_buf);
-	// while(stat_buf[0][index] != '\0')
-	// {
-	// 	printf("realloc pre stat_buf char: %d\n", stat_buf[0][index]);
-	// 	index++;
-	// }
 	*stat_buf = ft_substr(*stat_buf, gnl, stat_buf_len - gnl);
 	if(*stat_buf == NULL)
 	{
 		free(temp);
 		return(NULL);
 	}
-	// index = 0;
-	// while(stat_buf[0][index] != '\0')
-	// {
-	// 	printf("realloc after stat_buf char: %d\n", stat_buf[0][index]);
-	// 	index++;
-	// }
 	if(temp)
 	{
 		free(temp);
@@ -123,106 +49,51 @@ char * realloc_statbuf(char **stat_buf, size_t gnl, size_t stat_buf_len)
 
 int read_buffer(int fd, char** stat_buf)
 {
-    static ssize_t rtr;
+    ssize_t rtr;
 	char *read_buf;
 	char * temp;
 
 	read_buf = malloc((BUFFER_SIZE + 1));
 	if(read_buf == NULL)
 		return (0);
-
     rtr = -1;
     while(rtr != 0)
     {
 		rtr = read(fd, read_buf, BUFFER_SIZE);
         if (rtr == -1)
-		{
-		    free(read_buf);
-			read_buf = NULL;
-			return(0);
-		}
-		// printf("rtr: %ld\n", rtr);
-		if (rtr < BUFFER_SIZE)
-            read_buf[rtr] = '\0';
-		// if (read_buf[0] == 48 && read_buf[1] == '\0')
-		// {
-		// 	printf("yes\n");
-		// }
-		else
-            read_buf[BUFFER_SIZE] = '\0';
-		// int index = 0;
-		// while(read_buf[index])
-		// {
-		// 	printf("read_buf: %d\n", read_buf[index]);
-		// 	index++;
-		// }
-		// printf("read buffer stat_buf: %s\n", *stat_buf);
-		if(!*stat_buf && rtr == 0)
-		{
-			free(read_buf);
-			read_buf = NULL;
-			return(0);
-		}
-		if(!*stat_buf)
-		{
-			*stat_buf = ft_strdup("");
-			if(*stat_buf == NULL)
-			{
-				free(read_buf);
-				read_buf = NULL;
-				return(0);
-			}
-		}
+			return(free_all(&read_buf, 0));
+        read_buf[rtr] = '\0';
 		temp = *stat_buf;
 		*stat_buf = strjoin(*stat_buf, read_buf);
+		free_all(&temp, 1);
 		if(*stat_buf == NULL)
-			{
-				free(temp);
-				free(read_buf);
-				read_buf = NULL;
-				return(0);
-			}
-		// printf("*stat_buf: %s\n", *stat_buf);
-		free(temp);
-		temp = NULL;
-		if(check_nextline(read_buf) < BUFFER_SIZE)
-		{
-			free(read_buf);
-			read_buf = NULL;
-			return(1);
-		}
+			return(free_all(&read_buf, 0));
+		if(check_nextline(read_buf) < BUFFER_SIZE || read_buf[BUFFER_SIZE - 1] == '\n')
+			return(free_all(&read_buf, 1));
     }
-	free(read_buf);
-	read_buf = NULL;
-	return(1);
+	return(free_all(&read_buf, 1));
 }
 
 char * return_str(char **stat_buf, size_t gnl)
 {
 	char * ret;
 	size_t 	strlcpy_int;
+
 	if(gnl == 0 && !*stat_buf)
 		return(NULL);
-	
 	gnl += 1;
-	// else
-	// 	gnl += 1;
-	// printf("%ld\n",gnl);
 	ret = malloc(gnl);
 	if(ret == NULL)
 	{
-		free(*stat_buf);
-		*stat_buf = NULL;
-		free(ret);
+		free_all(stat_buf, 1);
+		free_all(&ret, 1);
 		return(NULL);
 	}
 	strlcpy_int = ft_strlcpy(ret, *stat_buf, gnl);
 	if(strlcpy_int == 0)
 	{
-		free(*stat_buf);
-		*stat_buf = NULL;
-		free(ret);
-		ret = NULL;
+		free_all(stat_buf, 1);
+		free_all(&ret, 1);
 		return(NULL);
 	}
 	return(ret);
@@ -240,35 +111,21 @@ char *  get_next_line(int fd)
 	if(read_buffer(fd, &stat_buf) == 0)
 	{
 		if(stat_buf)
-		{
-			free(stat_buf);
-			stat_buf = NULL;
-		}
-		return(NULL);
+			free_all(&stat_buf, 1);
+		return(0);
 	}
 	stat_buf_len = ft_strlen(stat_buf);
 	gnl = check_nextline(stat_buf);
-	// printf("stat_buf_len= %ld\ngnl= %ld\n", stat_buf_len, gnl);
-	// printf("stat_buf= %s\n", stat_buf);
 	ret = return_str(&stat_buf, gnl);
-	// printf("ret= %d\n", ret[0]);
 	if(gnl < stat_buf_len && ret != NULL)
 		realloc_statbuf(&stat_buf, gnl, stat_buf_len);
 	if(stat_buf == NULL && ret)
 	{
-		free(ret);
+		free_all(&ret, 1);
 		return(NULL);
 	}
-	if(gnl == stat_buf_len)
-	{
-		// printf("stat_buf: %s\n", stat_buf);
-		if(stat_buf)
-		{
-			free(stat_buf);
-			stat_buf = NULL;
-		}
-		// printf("stat_buf: %s\n", stat_buf);
-	}
+	if(stat_buf && gnl == stat_buf_len)
+		free_all(&stat_buf, 1);
 	return(ret);
 }
 
@@ -289,19 +146,23 @@ char *  get_next_line(int fd)
 //     // close(fd);
 
 // 	// fd = open("./test.txt", O_RDWR);
+	
+// 	char c;
+// 	read(fd, &c, 1);
+// 	printf("ret: %c\n", c);
 
 // 	test = get_next_line(fd);
 // 	printf("return: \n%s\n", test);
 // 	free(test);
-// 	test = get_next_line(fd);
-// 	printf("return: \n%s\n", test);
-// 	free(test);
-// 	test = get_next_line(fd);
-// 	printf("return: \n%s\n", test);
-// 	free(test);
-// 	test = get_next_line(fd);
-// 	printf("return: \n%s\n", test);
-// 	free(test);
+// 	// test = get_next_line(fd);
+// 	// printf("return: \n%s\n", test);
+// 	// free(test);
+// 	// test = get_next_line(fd);
+// 	// printf("return: \n%s\n", test);
+// 	// free(test);
+// 	// test = get_next_line(fd);
+// 	// printf("return: \n%s\n", test);
+// 	// free(test);
 
 // 	// test = get_next_line(fd);
 // 	// printf("return: \n%s\n", test);

@@ -6,7 +6,7 @@
 /*   By: mynodeus <mynodeus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 23:03:23 by spenning          #+#    #+#             */
-/*   Updated: 2023/12/30 23:49:24 by mynodeus         ###   ########.fr       */
+/*   Updated: 2024/01/06 13:28:50 by mynodeus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ int read_buffer(int fd, char** stat_buf);
 int check_nextline(char *stat_buf);
 char	*strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+int free_all(char **buffer, int ret);
 // static char * memmove(char *rtr);
 // static int read_stat(char *stat_buf);
 // char * parse_buffer(char * buff, char * stat_buff, unsigned int SIZE);
