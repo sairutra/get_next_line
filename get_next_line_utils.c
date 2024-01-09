@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mynodeus <mynodeus@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 10:43:41 by spenning          #+#    #+#             */
-/*   Updated: 2024/01/06 13:28:37 by mynodeus         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   get_next_line_utils.c                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: spenning <spenning@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 10:43:41 by spenning      #+#    #+#                 */
+/*   Updated: 2024/01/09 14:33:23 by spenning      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *s)
 	size_t	index;
 
 	index = 0;
-	if(!s)
+	if (!s)
 		return (0);
 	if (s[index] == '\0')
 	{
@@ -48,7 +48,7 @@ char	*strjoin(char const *s1, char const *s2)
 	if (ns_cptr == NULL)
 		return (NULL);
 	index = -1;
-	if(s1)
+	if (s1)
 	{
 		while (s1[++index])
 			ns_cptr[index] = s1[index];
@@ -60,11 +60,11 @@ char	*strjoin(char const *s1, char const *s2)
 	return (ns_cptr);
 }
 
-int free_all(char ** buffer, int ret)
+int	free_all(char **buffer, int ret)
 {
 	free(*buffer);
 	*buffer = NULL;
-	return(ret);
+	return (ret);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -73,8 +73,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*ns_cptr;
 	size_t	index;
 
-	// if (start >= ft_strlen(s))
-	// 	return (ft_strdup(""));
 	if (len > ft_strlen(s + start))
 		len = ft_strlen(s + start);
 	ns_cptr = (char *)malloc(len + 1);
