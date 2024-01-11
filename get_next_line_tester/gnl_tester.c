@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <fcntl.h>
+#include "gnl_tester.h"
 #include "../get_next_line.h" 
 
 #define RED   "\x1B[31m"
@@ -138,6 +139,11 @@ int fail_print()
 	return(0);
 }
 
+// redefine allocator functions
+# define malloc(size) _malloc(size, __LINE__)
+# define free(ptr) _free(ptr, __LINE__)
+
+
 int main (void)
 {
 	int testnbr;
@@ -145,19 +151,6 @@ int main (void)
 	int fd;
 	fclose(fopen("logs/error_log.txt", "w"));
 	welcome_screen();
-
-	testnbr = 1;
-	linenbr = 1;
-	printf(BMAG "empty.txt:\n" RESET);
-	fd = open("test_files/empty.txt", O_RDONLY);
-	if(tester(fd, NULL, testnbr, linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	close(fd);
-	printf("\n");
 
 	testnbr = 1;
 	linenbr = 1;
@@ -171,8 +164,21 @@ int main (void)
 		return(fail_print());
 	close(fd);
 	printf("\n");
-	linenbr = 0;
+	
+	testnbr = 1;
+	linenbr = 1;
+	printf(BMAG "empty.txt:\n" RESET);
+	fd = open("test_files/empty.txt", O_RDONLY);
+	if(tester(fd, NULL, testnbr, linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	close(fd);
+	printf("\n");
 
+	print_report();
 
 	return(1);
 }
