@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <fcntl.h>
-#include "gnl_tester.h"
 #include "../get_next_line.h" 
 
 #define RED   "\x1B[31m"
@@ -177,8 +176,6 @@ int main (void)
 		return(fail_print());
 	close(fd);
 	printf("\n");
-
-	print_report();
 
 	return(1);
 }
