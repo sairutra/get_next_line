@@ -1,18 +1,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include "../get_next_line.h" 
-
-#define RED   "\x1B[31m"
-#define GRN   "\x1B[1;32m"
-#define YEL   "\x1B[33m"
-#define BLU   "\x1B[34m"
-#define MAG   "\x1B[35m"
-#define BMAG   "\x1B[1;35m"
-#define CYN   "\x1B[36m"
-#define BCYN   "\x1B[1;36m"
-#define WHT   "\x1B[37m"
-#define RESET "\x1B[0m"
-
+#include "gnl_tester.h"
 
 static size_t	test_strlen(const char *s)
 {
@@ -110,37 +99,11 @@ int tester (const int fd, char *str, int testnbr, int linenbr)
 	return(0);
 }
 
-
-void welcome_screen()
-{
-	printf(CYN "<==================================================================================>\n" RESET);
-	printf(CYN "||                                                                                ||\n" RESET);
-	printf(CYN "||    ||      |      ||  ||||||  ||     |||||   ||||||    |||| |||||   ||||||     ||\n" RESET);
-	printf(CYN "||    ||     |||     ||  ||      ||    ||      ||    ||  ||   ||   ||  ||         ||\n" RESET);
-	printf(CYN "||    ||    || ||    ||  ||||||  ||    ||      ||    ||  ||   ||   ||  ||||||     ||\n" RESET);
-	printf(CYN "||     ||  ||   ||  ||   ||      ||    ||      ||    ||  ||   ||   ||  ||         ||\n" RESET);
-	printf(CYN "||      ||||     ||||    ||||||  |||||  |||||   ||||||   ||   ||   ||  ||||||     ||\n" RESET);
-	printf(CYN "||                                                                                ||\n" RESET);
-	printf(CYN "<==================================================================================>\n" RESET);
-	printf(CYN "+                                                                                  +\n" RESET);
-	printf(CYN "+                             " RESET);
-	printf(YEL "get_next_line" RESET);
-	printf(CYN " tester" RESET);
-	printf(CYN "                                 +\n" RESET);
-	printf(CYN "+                                  by spenning                                     +\n" RESET);
-	printf(CYN "+                                                                                  +\n" RESET);
-	printf(CYN "<==================================================================================>\n" RESET);
-}
-
 int fail_print()
 {
 	printf(RED "Program crashed\n" RESET);
 	return(0);
 }
-
-// redefine allocator functions
-# define malloc(size) _malloc(size, __LINE__)
-# define free(ptr) _free(ptr, __LINE__)
 
 
 int main (void)
@@ -149,10 +112,13 @@ int main (void)
 	int linenbr;
 	int fd;
 	fclose(fopen("logs/error_log.txt", "w"));
-	welcome_screen();
 
 	testnbr = 1;
 	linenbr = 1;
+
+	printf(BLU "\nBUFFER_SIZE = " RESET);
+	printf(YEL "%d\n\n" RESET, BUFFER_SIZE);
+
 	printf(BMAG "1char.txt:\n" RESET);
 	fd = open("test_files/1char.txt", O_RDONLY);
 	if(tester(fd, "1\n", testnbr, linenbr) == 1)
@@ -176,6 +142,96 @@ int main (void)
 		return(fail_print());
 	close(fd);
 	printf("\n");
+
+	testnbr = 1;
+	linenbr = 1;
+	printf(BMAG "longline.txt:\n" RESET);
+	fd = open("test_files/longline.txt", O_RDONLY);
+	if(tester(fd, "hfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhj", testnbr, linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	close(fd);
+	printf("\n");
+
+	testnbr = 1;
+	linenbr = 1;
+	printf(BMAG "longline_nl.txt:\n" RESET);
+	fd = open("test_files/longline_nl.txt", O_RDONLY);
+	if(tester(fd, "hfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhj\n", testnbr, linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	close(fd);
+	printf("\n");
+
+	testnbr = 1;
+	linenbr = 1;
+	printf(BMAG "multiplelines.txt:\n" RESET);
+	fd = open("test_files/multiplelines.txt", O_RDONLY);
+	if(tester(fd, "fkdsnckjdsnmdscmslkdmclk\n", testnbr, linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "jfiewjofjesofjiesfojesf\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "mclsmcklkdscmkdskmclmsdclkmds\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "kdcmslkdcmsmdslkmckdsmfkemwl\n", testnbr, linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "j94u23jr23nlkneflkflkmlkmm\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "3yrhonkjnejfjknf23kjnf3nnj\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	close(fd);
+	printf("\n");
+
+	testnbr = 1;
+	linenbr = 1;
+	printf(BMAG "nlines.txt:\n" RESET);
+	fd = open("test_files/nlines.txt", O_RDONLY);
+	if(tester(fd, "\n", testnbr, linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "\n", testnbr, linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	close(fd);
+	printf("\n");
+
+	testnbr = 1;
+	linenbr = 1;
+	printf(BMAG "nlines.txt:\n" RESET);
+	fd = open("test_files/nlines.txt", O_RDONLY);
+	if(tester(fd, "\n", testnbr, linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "\n", testnbr, linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	close(fd);
+	printf("\n");
+
 
 	return(1);
 }
