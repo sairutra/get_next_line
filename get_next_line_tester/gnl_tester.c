@@ -232,6 +232,27 @@ int main (void)
 	close(fd);
 	printf("\n");
 
+	// uses multiplelines.txt
+	testnbr = 1;
+	linenbr = 1;
+	printf(BMAG "stdin\n" RESET);
+	fd = STDIN_FILENO;
+	if(tester(fd, "fkdsnckjdsnmdscmslkdmclk\n", testnbr, linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "jfiewjofjesofjiesfojesf\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "mclsmcklkdscmkdskmclmsdclkmds\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "kdcmslkdcmsmdslkmckdsmfkemwl\n", testnbr, linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "j94u23jr23nlkneflkflkmlkmm\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, "3yrhonkjnejfjknf23kjnf3nnj\n", ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
+		return(fail_print());
+	close(fd);
+	printf("\n");
 
 	return(1);
 }
