@@ -17,8 +17,18 @@ TEST_4 = output/test4.out
 
 .SILENT:
 
-all: output logs
+all: output logs welcome tests 
+
+exe_without_welcome: output logs tests
+
+exe_welcome_lite: output logs welcome_lite tests
+
+welcome_lite:
+	$(CC) $(CFLAGS) gnl_tester_welcome_lite.c -o welcome_lite && ./welcome_lite && rm welcome_lite
+welcome: 
 	$(CC) $(CFLAGS) gnl_tester_welcome.c -o welcome && ./welcome && rm welcome
+
+tests:
 	$(CC) $(CFLAGS) gnl_tester.c ../get_next_line.c ../get_next_line_utils.c -D BUFFER_SIZE=1 -o $(TEST_1)
 	-$(VALGRIND) ./$(TEST_1) < test_files/multiplelines.txt
 	$(CC) $(CFLAGS) gnl_tester.c ../get_next_line.c ../get_next_line_utils.c -D BUFFER_SIZE=42 -o $(TEST_2) 
@@ -27,7 +37,6 @@ all: output logs
 	-$(VALGRIND) ./$(TEST_3) < test_files/multiplelines.txt
 	$(CC) $(CFLAGS) gnl_tester.c ../get_next_line.c ../get_next_line_utils.c -D BUFFER_SIZE=100000 -o $(TEST_4) 
 	-$(VALGRIND) ./$(TEST_4) < test_files/multiplelines.txt
-
 
 output: 
 	mkdir output
