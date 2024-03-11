@@ -1,12 +1,12 @@
+include sources.mk
+
 LIB_DIR := libft
 
 CC = cc
 
 CFLAGS = -Wall -Werror -Wextra
 
-SRCS = get_next_line.c get_next_line_utils.c 
-
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SOURCES:.c=.o)
 
 NAME = get_next_line.a
 

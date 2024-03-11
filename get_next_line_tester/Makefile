@@ -1,3 +1,5 @@
+include ../sources.mk
+
 CC = cc
 
 CFLAGS = -Wall -Werror -Wextra
@@ -8,20 +10,20 @@ LIB = mallocinterpose
 
 LIBSO = lib$(LIB).so
 
+NORMINETTE = norminette_tester/norminette.c
+
 TEST_1 = output/test1.out
 TEST_2 = output/test2.out
 TEST_3 = output/test3.out
 TEST_4 = output/test4.out
 
-
-
 .SILENT:
 
-all: output logs welcome tests 
+all: output logs welcome norminette tests 
 
-exe_without_welcome: output logs tests
+exe_without_welcome: output logs norminette tests
 
-exe_welcome_lite: output logs welcome_lite tests
+exe_welcome_lite: output logs welcome_lite norminette tests
 
 welcome_lite:
 	$(CC) $(CFLAGS) gnl_tester_welcome_lite.c -o welcome_lite && ./welcome_lite && rm welcome_lite
@@ -37,6 +39,10 @@ tests:
 	-$(VALGRIND) ./$(TEST_3) < test_files/multiplelines.txt
 	$(CC) $(CFLAGS) gnl_tester.c ../get_next_line.c ../get_next_line_utils.c -D BUFFER_SIZE=100000 -o $(TEST_4) 
 	-$(VALGRIND) ./$(TEST_4) < test_files/multiplelines.txt
+
+norminette: 
+	cc -Wall -Werror -Wextra $(NORMINETTE) && ./a.out $(SOURCES)
+	rm a.out
 
 output: 
 	mkdir output
