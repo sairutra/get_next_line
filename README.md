@@ -137,10 +137,27 @@ cd get_next_line
 
 <!-- USAGE EXAMPLES -->
 
-# Usage
+1. Include get_next_line.h file and get_next_line function in project.
+
+<a href="https://github.com/sebastianpenning/get_next_line">
+  <img src="images/include_gnl.png" alt="include_gnl" width="800" height="175">
+</a>
+
+
+2. Compile with cc
+
+```sh
+cc -Wall -Werror -Wextra {project_files.c} get_next_line.a && ./a.out
+```
 
 
 # Tester
+
+The gnl tester includes both unit tests and norminette tests for all files included. In the future memory tests are planned to be added.
+
+1. cd into get_next_line_tester
+
+2. Make tests
 
 
 <!-- ROADMAP -->
