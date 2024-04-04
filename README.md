@@ -44,7 +44,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/sebastianpenning/get_next_line">
-    <img src="images/logo.png" alt="Logo" width="225" height="150">
+    <img src="resources/images/logo.png" alt="Logo" width="225" height="150">
   </a>
 
   <h3 align="center">get_next_line</h3>
@@ -140,7 +140,7 @@ cd get_next_line
 1. Include get_next_line.h file and get_next_line function in project.
 
 <a href="https://github.com/sebastianpenning/get_next_line">
-  <img src="images/include_gnl.png" alt="include_gnl" width="800" height="175">
+  <img src="resources/images/include_gnl.png" alt="include_gnl" width="800" height="175">
 </a>
 
 
