@@ -1,32 +1,56 @@
-include sources.mk
+#Compiler and Linker
+CC          := cc
 
-LIB_DIR := libft
+#The Target library
+TARGET      := get_next_line.a
 
-CC = cc
+#The Directories, Source, Includes, Objects, Binary and Resources
+SRCDIR      := src
+INCDIR      := inc
+BUILDDIR    := obj
+TARGETDIR   := lib
+RESDIR      := res
+SRCEXT      := c
+OBJEXT      := o
 
-CFLAGS = -Wall -Werror -Wextra
+#Flags, Libraries and Includes
+CFLAGS      := -Wall -Werror -Wextra
 
-OBJS = $(SOURCES:.c=.o)
+#---------------------------------------------------------------------------------
+#DO NOT EDIT BELOW THIS LINE
+#---------------------------------------------------------------------------------
+SOURCES     := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
+OBJECTS     := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.$(OBJEXT)))
+OBJS        := $(shell find $(BUILDDIR) -type f -name *.$(OBJEXT))
 
-NAME = get_next_line.a
+#Default Make
+all: directories $(TARGET)
 
-.SILENT:
-
-.PHONY: all clean fclean re
-
-all: $(NAME) 
-
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
-
- %.o: %.c
-	$(CC) $(CFLAGS) -c $<  -o $@
-
-clean:
-	rm -f $(OBJS)
-
-fclean: clean
-	rm -f $(NAME)
-
+#Remake
 re: fclean all
 
+#Make the Directories
+directories:
+	@mkdir -p $(TARGETDIR)
+	@mkdir -p $(BUILDDIR)
+
+#Clean only Objects
+clean:
+	@$(RM) -rf $(BUILDDIR)
+
+#Full Clean, Objects and Binaries
+fclean: clean
+	@$(RM) -rf $(TARGETDIR)
+
+#Link
+$(TARGET): $(OBJECTS)
+	@ar rcs $(TARGET) $@ $<
+	mv $(TARGET) $(TARGETDIR)/
+
+#Compile
+$(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+#Non-File Targets
+.PHONY: all re clean fclean 

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../../inc/get_next_line.h"
 
 int	check_nextline(char	*stat_buf)
 {
@@ -34,7 +34,7 @@ char	*realloc_statbuf(char	**stat_buf, size_t gnl, size_t stat_buf_len)
 	char	*temp;
 
 	temp = *stat_buf;
-	*stat_buf = ft_substr(*stat_buf, gnl, stat_buf_len - gnl);
+	*stat_buf = gnl_substr(*stat_buf, gnl, stat_buf_len - gnl);
 	if (*stat_buf == NULL)
 	{
 		free(temp);
@@ -90,7 +90,7 @@ char	*return_str(char **stat_buf, size_t gnl)
 		free_all(&ret, 1);
 		return (NULL);
 	}
-	strlcpy_int = ft_strlcpy(ret, *stat_buf, gnl);
+	strlcpy_int = gnl_strlcpy(ret, *stat_buf, gnl);
 	if (strlcpy_int == 0)
 	{
 		free_all(stat_buf, 1);
@@ -113,7 +113,7 @@ char	*get_next_line(int fd)
 			free_all(&stat_buf, 1);
 		return (NULL);
 	}
-	stat_buf_len = ft_strlen(stat_buf);
+	stat_buf_len = gnl_strlen(stat_buf);
 	gnl = check_nextline(stat_buf);
 	ret = return_str(&stat_buf, gnl);
 	if (gnl < stat_buf_len && ret != NULL)

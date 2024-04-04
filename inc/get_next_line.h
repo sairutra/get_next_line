@@ -37,17 +37,17 @@ char	*realloc_statbuf(char	**stat_buf, size_t gnl, size_t stat_buf_len);
 char	*strjoin(char const *s1, char const *s2);
 // This function takes pointer char *s, and expects a null terminated string.
 // then returns the length of the string.
-size_t	ft_strlen(const char *s);
+size_t	gnl_strlen(const char *s);
 // This function takes a pointer to s and creates a substring with len length starting from  
 // start index. if start is longer than length of s, then function will return empty string. If the
 // length is bigger than length of s starting from index start, then len will be adjusted to length of
 // s starting from index start. This function returns a char * to allocated substring, 
 //if allocations failed it will return NULL.
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*gnl_substr(char const *s, unsigned int start, size_t len);
 // This function copy size bytes from src to dst, function always returns the length of src. 
 // Function will keep on copying until it reaches size - 1, and there are still charachters to copy
 // from src. Afterwards it null terminates the result.
-size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+size_t	gnl_strlcpy(char *dst, const char *src, size_t size);
 // function frees buffer given and gives ret back as return value
 int		free_all(char **buffer, int ret);
 

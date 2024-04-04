@@ -1,4 +1,4 @@
-include ../sources.mk
+#include ../Makefile
 
 CC = cc
 
@@ -11,6 +11,10 @@ LIB = mallocinterpose
 LIBSO = lib$(LIB).so
 
 NORMINETTE = norminette_tester/norminette.c
+
+SRCDIR = ../src
+
+SOURCES     := $(shell find $(SRCDIR) -type f -name "*.c")
 
 TEST_1 = output/test1.out
 TEST_2 = output/test2.out
@@ -31,13 +35,13 @@ welcome:
 	$(CC) $(CFLAGS) gnl_tester_welcome.c -o welcome && ./welcome && rm welcome
 
 tests:
-	$(CC) $(CFLAGS) gnl_tester.c ../get_next_line.c ../get_next_line_utils.c -D BUFFER_SIZE=1 -o $(TEST_1)
+	$(CC) $(CFLAGS) gnl_tester.c ../src/main/get_next_line.c ../src/utils/get_next_line_utils.c -D BUFFER_SIZE=1 -o $(TEST_1)
 	-$(VALGRIND) ./$(TEST_1) < test_files/multiplelines.txt
-	$(CC) $(CFLAGS) gnl_tester.c ../get_next_line.c ../get_next_line_utils.c -D BUFFER_SIZE=42 -o $(TEST_2) 
+	$(CC) $(CFLAGS) gnl_tester.c ../src/main/get_next_line.c ../src/utils/get_next_line_utils.c -D BUFFER_SIZE=42 -o $(TEST_2) 
 	-$(VALGRIND) ./$(TEST_2) < test_files/multiplelines.txt
-	$(CC) $(CFLAGS) gnl_tester.c ../get_next_line.c ../get_next_line_utils.c -D BUFFER_SIZE=1000 -o $(TEST_3) 
+	$(CC) $(CFLAGS) gnl_tester.c ../src/main/get_next_line.c ../src/utils/get_next_line_utils.c -D BUFFER_SIZE=1000 -o $(TEST_3) 
 	-$(VALGRIND) ./$(TEST_3) < test_files/multiplelines.txt
-	$(CC) $(CFLAGS) gnl_tester.c ../get_next_line.c ../get_next_line_utils.c -D BUFFER_SIZE=100000 -o $(TEST_4) 
+	$(CC) $(CFLAGS) gnl_tester.c ../src/main/get_next_line.c ../src/utils/get_next_line_utils.c -D BUFFER_SIZE=100000 -o $(TEST_4) 
 	-$(VALGRIND) ./$(TEST_4) < test_files/multiplelines.txt
 
 norminette: 
@@ -54,6 +58,7 @@ clean_logs:
 
 clean_output:
 	-rm -rf output
+	-rm -rf *.txt
 
 clean: clean_logs clean_output
 

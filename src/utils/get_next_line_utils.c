@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../../inc/get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+size_t	gnl_strlen(const char *s)
 {
 	size_t	index;
 
@@ -42,8 +42,8 @@ char	*strjoin(char const *s1, char const *s2)
 
 	if (!s1 && !s2)
 		return (NULL);
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
+	len_s1 = gnl_strlen(s1);
+	len_s2 = gnl_strlen(s2);
 	ns_cptr = (char *)malloc(sizeof(char) * (len_s1 + len_s2 + 1));
 	if (ns_cptr == NULL)
 		return (NULL);
@@ -67,14 +67,14 @@ int	free_all(char **buffer, int ret)
 	return (ret);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*gnl_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*s_cptr;
 	char	*ns_cptr;
 	size_t	index;
 
-	if (len > ft_strlen(s + start))
-		len = ft_strlen(s + start);
+	if (len > gnl_strlen(s + start))
+		len = gnl_strlen(s + start);
 	ns_cptr = (char *)malloc(len + 1);
 	if (ns_cptr == NULL)
 		return (NULL);
@@ -90,12 +90,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (ns_cptr);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+size_t	gnl_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t		srclen;
 	size_t		index;
 
-	srclen = ft_strlen(src);
+	srclen = gnl_strlen(src);
 	index = 0;
 	if (size > 0)
 	{
