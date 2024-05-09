@@ -44,7 +44,7 @@ fclean: clean
 
 #Link
 $(TARGET): $(OBJECTS)
-	@ar rcs $(TARGET) $@ $<
+	@ar rcs $(TARGET) $(OBJECTS)
 	mv $(TARGET) $(TARGETDIR)/
 
 #Compile
