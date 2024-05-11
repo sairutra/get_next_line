@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   get_next_line.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: spenning <spenning@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/04 23:44:00 by mynodeus      #+#    #+#                 */
-/*   Updated: 2024/01/09 14:42:23 by spenning      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: spenning <spenning@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/04 23:44:00 by mynodeus          #+#    #+#             */
+/*   Updated: 2024/05/11 21:22:32 by spenning         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,17 @@ int	read_buffer(int fd, char **stat_buf)
 	{
 		rtr = read(fd, buf, BUFFER_SIZE);
 		if (rtr == -1)
-			return (free_all(&buf, 0));
+			return (free_all(&buf, 0, 1));
 		buf[rtr] = '\0';
 		temp = *stat_buf;
 		*stat_buf = strjoin(*stat_buf, buf);
-		free_all(&temp, 1);
+		free_all(&temp, 1, 1);
 		if (*stat_buf == NULL)
-			return (free_all(&buf, 0));
+			return (free_all(&buf, 0, 1));
 		if (check_nextline(buf) < BUFFER_SIZE || buf[BUFFER_SIZE - 1] == '\n')
-			return (free_all(&buf, 1));
+			return (free_all(&buf, 1, 1));
 	}
-	return (free_all(&buf, 1));
+	return (free_all(&buf, 1, 1));
 }
 
 char	*return_str(char **stat_buf, size_t gnl)
@@ -86,31 +86,32 @@ char	*return_str(char **stat_buf, size_t gnl)
 	ret = malloc(sizeof(char) * gnl);
 	if (ret == NULL)
 	{
-		free_all(stat_buf, 1);
-		free_all(&ret, 1);
+		free_all(stat_buf, 1, 1);
+		free_all(&ret, 1, 1);
 		return (NULL);
 	}
 	strlcpy_int = gnl_strlcpy(ret, *stat_buf, gnl);
 	if (strlcpy_int == 0)
 	{
-		free_all(stat_buf, 1);
-		free_all(&ret, 1);
+		free_all(stat_buf, 1, 1);
+		free_all(&ret, 1, 1);
 		return (NULL);
 	}
 	return (ret);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int free_buf)
 {
 	static char		*stat_buf;
 	char			*ret;
 	size_t			gnl;
 	size_t			stat_buf_len;
 
+	free_all(&stat_buf, 1, free_buf);
 	if (read_buffer(fd, &stat_buf) == 0 || BUFFER_SIZE == 0)
 	{
 		if (stat_buf)
-			free_all(&stat_buf, 1);
+			free_all(&stat_buf, 1, 1);
 		return (NULL);
 	}
 	stat_buf_len = gnl_strlen(stat_buf);
@@ -120,10 +121,10 @@ char	*get_next_line(int fd)
 		realloc_statbuf(&stat_buf, gnl, stat_buf_len);
 	if (stat_buf == NULL && ret)
 	{
-		free_all(&ret, 1);
+		free_all(&ret, 1, 1);
 		return (NULL);
 	}
 	if (stat_buf && gnl == stat_buf_len)
-		free_all(&stat_buf, 1);
+		free_all(&stat_buf, 1, 1);
 	return (ret);
 }

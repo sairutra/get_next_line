@@ -6,7 +6,7 @@
 /*   By: spenning <spenning@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 23:03:23 by spenning          #+#    #+#             */
-/*   Updated: 2024/05/09 18:05:37 by spenning         ###   ########.fr       */
+/*   Updated: 2024/05/11 21:20:13 by spenning         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 // This function takes a fd and returns a char * with next line from fd. 
 //If function fails it returns NULL
-char	*get_next_line(int fd);
+char	*get_next_line(int fd, int free_buf);
 // This function reads the buffer from fd until \n is found or EOF
 // and puts it in stat_buf
 int		read_buffer(int fd, char **stat_buf);
@@ -52,6 +52,6 @@ char	*gnl_substr(char const *s, unsigned int start, size_t len);
 // from src. Afterwards it null terminates the result.
 size_t	gnl_strlcpy(char *dst, const char *src, size_t size);
 // function frees buffer given and gives ret back as return value
-int		free_all(char **buffer, int ret);
+int		free_all(char **buffer, int ret, int free_buf);
 
 #endif

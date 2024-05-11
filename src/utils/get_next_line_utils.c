@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   get_next_line_utils.c                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: spenning <spenning@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 10:43:41 by spenning      #+#    #+#                 */
-/*   Updated: 2024/01/09 14:33:23 by spenning      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: spenning <spenning@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 10:43:41 by spenning          #+#    #+#             */
+/*   Updated: 2024/05/11 21:20:48 by spenning         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,13 @@ char	*strjoin(char const *s1, char const *s2)
 	return (ns_cptr);
 }
 
-int	free_all(char **buffer, int ret)
+int	free_all(char **buffer, int ret, int free_buf)
 {
-	free(*buffer);
-	*buffer = NULL;
+	if (free_buf && *buffer)
+	{
+		free(*buffer);
+		*buffer = NULL;
+	}
 	return (ret);
 }
 

@@ -52,7 +52,7 @@ int tester (const int fd, char *str, int testnbr, int linenbr)
 
 	error_index = 0; 
 	rtr = 0;
-	gnl = get_next_line(fd);
+	gnl = get_next_line(fd, 0);
 	if(str && gnl)
 	{
 		if(test_strlen(gnl) > test_strlen(str))

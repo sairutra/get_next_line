@@ -11,7 +11,7 @@ int main(void)
 	fd = open("main_text.txt", O_RDONLY);
 
 	index = 0;
-	test = get_next_line(fd);
+	test = get_next_line(fd, 0);
 	printf("String returned:\n");
 	printf("%s\n", test);
 	printf("Ascii returned:\n");
