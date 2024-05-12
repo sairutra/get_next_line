@@ -6,7 +6,7 @@
 /*   By: spenning <spenning@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 10:43:41 by spenning          #+#    #+#             */
-/*   Updated: 2024/05/11 21:20:48 by spenning         ###   ########.fr       */
+/*   Updated: 2024/05/12 12:07:48 by spenning         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,16 @@ char	*strjoin(char const *s1, char const *s2)
 
 int	free_all(char **buffer, int ret, int free_buf)
 {
-	if (free_buf && *buffer)
+	if (free_buf == 1 && *buffer)
 	{
 		free(*buffer);
 		*buffer = NULL;
+	}
+	else if (free_buf == 2 && *buffer)
+	{
+		free(*buffer);
+		*buffer = NULL;
+		exit(EXIT_SUCCESS);
 	}
 	return (ret);
 }

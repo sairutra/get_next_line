@@ -1,2 +1,5 @@
 logs
 output
+lib
+obj
+*.txt
