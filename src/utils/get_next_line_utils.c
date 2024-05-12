@@ -6,7 +6,7 @@
 /*   By: spenning <spenning@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 10:43:41 by spenning          #+#    #+#             */
-/*   Updated: 2024/05/12 12:07:48 by spenning         ###   ########.fr       */
+/*   Updated: 2024/05/12 12:42:56 by spenning         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	free_all(char **buffer, int ret, int free_buf)
 		*buffer = NULL;
 		exit(EXIT_SUCCESS);
 	}
+	else if (free_buf == 2)
+		exit(EXIT_SUCCESS);
 	return (ret);
 }
 
