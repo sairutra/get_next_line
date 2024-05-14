@@ -6,7 +6,7 @@
 /*   By: spenning <spenning@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 23:03:23 by spenning          #+#    #+#             */
-/*   Updated: 2024/05/14 20:06:58 by spenning         ###   ########.fr       */
+/*   Updated: 2024/05/14 21:23:56 by spenning         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ int		free_all(char **buffer, int ret, int free_buf);
 // can later be free, just as calloc does in real life. 
 // with the parameters given, if it is possible, then the size is allocated
 // plus the memory is all zero'd
-void	*ft_calloc(size_t nmemb, size_t size);
+void	*gnl_calloc(size_t nmemb, size_t size);
 // This function gets a pointer to a certain location together with 
 // the buffer size it needs to set to zero. The void pointer given is
 // typecasted to char * so each byte can be then set to 0 in the while loop
 // we go until index < n because the index is set to 0 while n is total length
 // and it not index based  
-void	ft_bzero(void *s, size_t n);
+void	gnl_bzero(void *s, size_t n);
 #endif
