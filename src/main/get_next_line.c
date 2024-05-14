@@ -6,7 +6,7 @@
 /*   By: spenning <spenning@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 23:44:00 by mynodeus          #+#    #+#             */
-/*   Updated: 2024/05/11 21:22:32 by spenning         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:03:17 by spenning         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	read_buffer(int fd, char **stat_buf)
 	char	*buf;
 	char	*temp;
 
-	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	buf = ft_calloc(sizeof(char), (BUFFER_SIZE + 1));
 	if (buf == NULL)
 		return (0);
 	rtr = -1;
@@ -83,7 +83,7 @@ char	*return_str(char **stat_buf, size_t gnl)
 	if (gnl == 0 && !*stat_buf)
 		return (NULL);
 	gnl += 1;
-	ret = malloc(sizeof(char) * gnl);
+	ret = ft_calloc(sizeof(char), gnl);
 	if (ret == NULL)
 	{
 		free_all(stat_buf, 1, 1);
@@ -107,11 +107,11 @@ char	*get_next_line(int fd, int free_buf)
 	size_t			gnl;
 	size_t			stat_buf_len;
 
-	free_all(&stat_buf, 1, free_buf);
+	if (free_all(&stat_buf, 0, free_buf))
+		return (NULL);
 	if (read_buffer(fd, &stat_buf) == 0 || BUFFER_SIZE == 0)
 	{
-		if (stat_buf)
-			free_all(&stat_buf, 1, 1);
+		free_all(&stat_buf, 1, 1);
 		return (NULL);
 	}
 	stat_buf_len = gnl_strlen(stat_buf);
