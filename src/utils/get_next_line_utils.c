@@ -6,7 +6,7 @@
 /*   By: spenning <spenning@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 10:43:41 by spenning          #+#    #+#             */
-/*   Updated: 2024/05/14 20:04:06 by spenning         ###   ########.fr       */
+/*   Updated: 2024/05/14 21:21:15 by spenning         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*strjoin(char const *s1, char const *s2)
 		return (NULL);
 	len_s1 = gnl_strlen(s1);
 	len_s2 = gnl_strlen(s2);
-	ns_cptr = (char *)ft_calloc(sizeof(char), (len_s1 + len_s2 + 1));
+	ns_cptr = (char *)gnl_calloc(sizeof(char), (len_s1 + len_s2 + 1));
 	if (ns_cptr == NULL)
 		return (NULL);
 	index = -1;
@@ -86,7 +86,7 @@ char	*gnl_substr(char const *s, unsigned int start, size_t len)
 
 	if (len > gnl_strlen(s + start))
 		len = gnl_strlen(s + start);
-	ns_cptr = (char *)ft_calloc(len + 1, 1);
+	ns_cptr = (char *)gnl_calloc(len + 1, 1);
 	if (ns_cptr == NULL)
 		return (NULL);
 	s_cptr = (char *)s;

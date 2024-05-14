@@ -6,7 +6,7 @@
 /*   By: spenning <spenning@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 19:35:40 by spenning          #+#    #+#             */
-/*   Updated: 2024/05/14 20:07:13 by spenning         ###   ########.fr       */
+/*   Updated: 2024/05/14 21:21:05 by spenning         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 #include "../../inc/get_next_line.h"
 
-void	ft_bzero(void *s, size_t n)
+void	gnl_bzero(void *s, size_t n)
 {
 	long unsigned int	index;
 	char				*cptr;
@@ -35,7 +35,7 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*gnl_calloc(size_t nmemb, size_t size)
 {
 	void				*memory_vptr;
 	size_t				totalsize;
@@ -50,7 +50,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 		memory_vptr = malloc(totalsize);
 		if (!memory_vptr)
 			return (NULL);
-		ft_bzero(memory_vptr, totalsize);
+		gnl_bzero(memory_vptr, totalsize);
 		return (memory_vptr);
 	}
 }
