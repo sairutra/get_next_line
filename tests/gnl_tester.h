@@ -6,7 +6,7 @@
 /*   By: mynodeus <mynodeus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 16:15:32 by mynodeus          #+#    #+#             */
-/*   Updated: 2024/05/17 17:30:11 by mynodeus         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:26:42 by mynodeus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	nlines(void);
 void	stdin_test(void);
 size_t	test_strlen(const char *s);
 int		test_strncmp(const char *s1, const char *s2, size_t n);
-int		fail_print();
+int		fail_print(void);
 int		log_error(char *gnl, char	*str, int testnbr, int linenbr);
 
 # ifndef BUFFER_SIZE

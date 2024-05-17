@@ -10,7 +10,9 @@ LIB = mallocinterpose
 
 LIBSO = lib$(LIB).so
 
-NORMINETTE = norminette_tester/norminette.c
+NORMINETTE = norminette_tester.sh
+NORMDIR    = -d ../../
+NORM_NO_PR = -npi
 
 SRCTESTDIR = ./src
 SRCDIR = ../src
@@ -49,8 +51,7 @@ tests:
 	-$(VALGRIND) ./$(TEST_4) < test_files/multiplelines.txt
 
 norminette: 
-	cc -Wall -Werror -Wextra $(NORMINETTE) && ./a.out $(SOURCES)
-	rm a.out
+	cd norminette_tester && bash $(NORMINETTE) $(NORMDIR)
 
 output: 
 	mkdir output
