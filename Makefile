@@ -1,3 +1,5 @@
+include sources.mk
+
 #Compiler and Linker
 CC          := cc
 
