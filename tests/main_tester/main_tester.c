@@ -1,15 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_tester.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mynodeus <mynodeus@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/17 16:13:37 by mynodeus          #+#    #+#             */
+/*   Updated: 2024/05/17 16:45:41 by mynodeus         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../inc/get_next_line.h"
 #include <stdio.h>
 #include <fcntl.h>
-#include "../../get_next_line.h"
 
-int main(void)
+int	main(void)
 {
-	char * test;
-	int fd;
-	int index;
+	char	*test;
+	int		fd;
+	int		index;
 
-	fd = open("main_text.txt", O_RDONLY);
-
+	fd = open("main_ext.txt", O_RDONLY);
 	index = 0;
 	test = get_next_line(fd, 0);
 	printf("String returned:\n");
@@ -19,7 +30,6 @@ int main(void)
 		printf("%i\n", test[index++]);
 	index = 0;
 	free(test);
-
 	close(fd);
-	return(0);
+	return (0);
 }

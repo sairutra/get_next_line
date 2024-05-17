@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <fcntl.h>
-#include "../inc/get_next_line.h" 
 #include "gnl_tester.h"
 
 static size_t	test_strlen(const char *s)
@@ -108,151 +105,15 @@ int fail_print()
 
 int main (void)
 {
-	int testnbr;
-	int linenbr;
-	int fd;
 	fclose(fopen("logs/error_log.txt", "w"));
-
-	testnbr = 1;
-	linenbr = 1;
-
 	printf(BLU "\nBUFFER_SIZE = " RESET);
 	printf(YEL "%d\n\n" RESET, BUFFER_SIZE);
-
-	printf(BMAG "1char.txt:\n" RESET);
-	fd = open("test_files/1char.txt", O_RDONLY);
-	if(tester(fd, "1\n", testnbr, linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "1\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "1", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	close(fd);
-	printf("\n");
-	
-	testnbr = 1;
-	linenbr = 1;
-	printf(BMAG "empty.txt:\n" RESET);
-	fd = open("test_files/empty.txt", O_RDONLY);
-	if(tester(fd, NULL, testnbr, linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	close(fd);
-	printf("\n");
-
-	testnbr = 1;
-	linenbr = 1;
-	printf(BMAG "longline.txt:\n" RESET);
-	fd = open("test_files/longline.txt", O_RDONLY);
-	if(tester(fd, "hfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhj", testnbr, linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	close(fd);
-	printf("\n");
-
-	testnbr = 1;
-	linenbr = 1;
-	printf(BMAG "longline_nl.txt:\n" RESET);
-	fd = open("test_files/longline_nl.txt", O_RDONLY);
-	if(tester(fd, "hfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhjhfisudhfkjdshfkjdshfkjhdsfkjhdskjfhdskjfndskjcdknckjwefu3hr9723yr7hkjcdsbcjbdsjcbshjbhj\n", testnbr, linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	close(fd);
-	printf("\n");
-
-	testnbr = 1;
-	linenbr = 1;
-	printf(BMAG "multiplelines.txt:\n" RESET);
-	fd = open("test_files/multiplelines.txt", O_RDONLY);
-	if(tester(fd, "fkdsnckjdsnmdscmslkdmclk\n", testnbr, linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "jfiewjofjesofjiesfojesf\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "mclsmcklkdscmkdskmclmsdclkmds\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "kdcmslkdcmsmdslkmckdsmfkemwl\n", testnbr, linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "j94u23jr23nlkneflkflkmlkmm\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "3yrhonkjnejfjknf23kjnf3nnj\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	close(fd);
-	printf("\n");
-
-	testnbr = 1;
-	linenbr = 1;
-	printf(BMAG "nlines.txt:\n" RESET);
-	fd = open("test_files/nlines.txt", O_RDONLY);
-	if(tester(fd, "\n", testnbr, linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "\n", testnbr, linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	close(fd);
-	printf("\n");
-
-	testnbr = 1;
-	linenbr = 1;
-	printf(BMAG "nlines.txt:\n" RESET);
-	fd = open("test_files/nlines.txt", O_RDONLY);
-	if(tester(fd, "\n", testnbr, linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "\n", testnbr, linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	close(fd);
-	printf("\n");
-
-	// uses multiplelines.txt
-	testnbr = 1;
-	linenbr = 1;
-	printf(BMAG "stdin\n" RESET);
-	fd = STDIN_FILENO;
-	if(tester(fd, "fkdsnckjdsnmdscmslkdmclk\n", testnbr, linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "jfiewjofjesofjiesfojesf\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "mclsmcklkdscmkdskmclmsdclkmds\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "kdcmslkdcmsmdslkmckdsmfkemwl\n", testnbr, linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "j94u23jr23nlkneflkflkmlkmm\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, "3yrhonkjnejfjknf23kjnf3nnj\n", ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	if(tester(fd, NULL, ++testnbr, ++linenbr) == 1)
-		return(fail_print());
-	close(fd);
-	printf("\n");
-
-	return(1);
+	one_char();
+	empty();
+	longline();
+	longline_nl();
+	multiplelines();
+	nlines();
+	stdin_test();
+	return (1);
 }
