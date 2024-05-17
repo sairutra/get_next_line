@@ -44,8 +44,7 @@ fclean: clean
 
 #Link
 $(TARGET): $(OBJECTS)
-	@ar rcs $(TARGET) $(OBJECTS)
-	mv $(TARGET) $(TARGETDIR)/
+	@if [ ! -f $(TARGET) ]; ar rcs $(TARGET) $(OBJECTS); then mv $(TARGET) $(TARGETDIR)/l; fi
 
 #Compile
 $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
